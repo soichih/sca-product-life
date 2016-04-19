@@ -28,9 +28,9 @@ for root, dirs, files in os.walk("../"+dir):
             #TODO... I should make this a bit more smarter
             found_diffusion = False
             #for file in tar.list(verbose=False):
-            for file in tar.getnames():
-                print file
-                if file.startswith("data/diffusion"):
+            for name in tar.getnames():
+                print name 
+                if name.startswith("data/diffusion"):
                     found_diffusion = True
             
             #content should look like this
