@@ -4,6 +4,7 @@ import json
 import sys
 import glob
 import tarfile
+import errno
 
 #dump env .. for debugging
 for e in os.environ:
@@ -14,6 +15,16 @@ config_json=open("config.json").read()
 config=json.loads(config_json)
 
 dir=config["source_dir"]
+
+def symlink_force(target, link_name):
+    try:
+        os.symlink(target, link_name)
+    except OSError, e:
+        if e.errno == errno.EEXIST:
+            os.remove(link_name)
+            os.symlink(target, link_name)
+        else:
+            raise e
 
 #find tar.gz
 tars = []
@@ -55,7 +66,8 @@ for root, dirs, files in os.walk("../"+dir):
             tar.close()
 
             if found_diffusion:
-                os.symlink(path, file) 
+                #os.symlink(path, file) 
+                symlink_force(path, file)
                 tars.append({"filename": file, "size": os.path.getsize(path)})
             else:
                 print ".tar.gz found but doesn't contain data/diffusion"
