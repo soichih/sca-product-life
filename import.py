@@ -62,5 +62,5 @@ for root, dirs, files in os.walk("../"+dir):
 
 #output products.json
 with open('products.json', 'w') as out:
-    json.dump({"type": "life", "files": tars}, out)
+    json.dump({"type": "life/brain", "files": tars}, out)
 
