@@ -1,5 +1,5 @@
 {
-  "name": "sca-product-lifebrain",
+  "name": "sca-product-life",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/soichih/sca-product-lifebrain.git"
+    "url": "https://github.com/soichih/sca-product-life.git"
   },
   "author": "Soichi Hayashi <hayashis@iu.edu>",
   "license": "ISC",

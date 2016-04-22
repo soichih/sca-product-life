@@ -1,0 +1,10 @@
+{{product.graphs}}
+
+<div ng-repeat="product in task.products">
+    <div class="row">
+        <div class="col-md-4" ng-repeat="graph in graphs">
+            <label class="text-muted">{{graph.id}}</label>
+            <a ng-href="{{graph.url}}" target="{{graph.id}}"><img style="width: 100%;" ng-src="{{graph.url}}"></a>
+        </div>
+    </div>
+</div>

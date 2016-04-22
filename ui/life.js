@@ -2,7 +2,7 @@
     'use strict';
 
     //https://github.com/danialfarid/ng-file-upload
-    var service = angular.module('sca-product-lifebrain', [ ]);
+    var service = angular.module('sca-product-life', [ ]);
     service.directive('scaProductLifebrain', ['toaster', '$http', '$timeout', 
     function(toaster, $http, $timeout) {
         return {
@@ -13,8 +13,9 @@
                 jwt: '=',
                 conf: '=', //need sca_api set
             }, 
-            templateUrl: 'bower_components/sca-product-lifebrain/ui/lifebrain.html',
+            templateUrl: 'bower_components/sca-product-life/ui/lifebrain.html',
             link: function($scope, element) {
+                /*
 
                 load_task();
                 var t = null;
@@ -58,6 +59,36 @@
                 }
                 $scope.$on("$destroy", function(event) {
                     if(t) $timeout.cancel(t);
+                });
+                */
+            }
+        };
+    }]);
+
+    service.directive('scaProductLifeout', ['toaster', '$http', '$timeout', 
+    function(toaster, $http, $timeout) {
+        return {
+            restrict: 'E',
+            scope: {
+                task: '=',
+                //path: '=', //if empty, it will be set to instantce_id / task_id
+                jwt: '=',
+                conf: '=', //need sca_api set
+            }, 
+            templateUrl: 'bower_components/sca-product-life/ui/lifeout.html',
+            link: function($scope, element) {
+                $scope.graphs = [];
+                $scope.$watch('task', function(task) {
+                    if(!task) return; //task not yet loaded
+                    $scope.graphs = [];
+                    var dir = task.instance_id+"/"+task._id;
+                    if(task.products && task.products[0].type == "life/out") {
+                        for(var id in task.products[0].graphs) {
+                            var graph = task.products[0].graphs[id];
+                            var path = dir+"/"+graph.filename;
+                            $scope.graphs.push({id: id, url: $scope.conf.sca_api+"/resource/download?r="+task.resource_id+"&p="+encodeURI(path)+"&at="+$scope.jwt});
+                        }
+                    }
                 });
             }
         };
