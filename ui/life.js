@@ -78,7 +78,7 @@
             templateUrl: 'bower_components/sca-product-life/ui/lifeout.html',
             link: function($scope, element) {
                 $scope.graphs = [];
-                $scope.$watch('task', function(task) {
+                $scope.$watchCollection('task', function(task) {
                     if(!task) return; //task not yet loaded
                     $scope.graphs = [];
                     var dir = task.instance_id+"/"+task._id;
