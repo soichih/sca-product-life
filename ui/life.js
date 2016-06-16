@@ -15,52 +15,7 @@
             }, 
             templateUrl: 'bower_components/sca-product-life/ui/lifebrain.html',
             link: function($scope, element) {
-                /*
-
-                load_task();
-                var t = null;
-
-                function load_task() {
-                    $http.get($scope.conf.sca_api+"/task/"+$scope.taskid)
-                    .then(function(res) {
-                        var task = res.data;
-                        if(!task.resource_id) {
-                            //task doesn't have resource_id.. probably hasn't run yet.. reload later
-                            t = $timeout(load_task, 1000);
-                            
-                        } else {
-                            //we have resource! now display!
-                            $scope.resourceid = task.resource_id;
-                            $scope.path = $scope.path || task.instance_id+"/"+task._id;
-                            load_files();
-                        }
-                    }, function(res) {
-                        if(res.data && res.data.message) toaster.error(res.data.message);
-                        else toaster.error(res.statusText);
-                    });
-                }
-
-                function load_files() {
-                    $http.get($scope.conf.sca_api+"/resource/ls", {
-                        params: {
-                            resource_id: $scope.resourceid,
-                            path: $scope.path,
-                        }
-                    })
-                    .then(function(res) {
-                        $scope.files = res.data.files;
-                        $scope.files.forEach(function(file) {
-                            file.path = $scope.path+"/"+file.filename;
-                        });
-                    }, function(res) {
-                        if(res.data && res.data.message) toaster.error(res.data.message);
-                        else toaster.error(res.statusText);
-                    });
-                }
-                $scope.$on("$destroy", function(event) {
-                    if(t) $timeout.cancel(t);
-                });
-                */
+                //nothing to do..
             }
         };
     }]);
@@ -71,7 +26,6 @@
             restrict: 'E',
             scope: {
                 task: '=',
-                //path: '=', //if empty, it will be set to instantce_id / task_id
                 jwt: '=',
                 conf: '=', //need sca_api set
             }, 
@@ -82,7 +36,7 @@
                     if(!task) return; //task not yet loaded
                     $scope.graphs = [];
                     var dir = task.instance_id+"/"+task._id;
-                    if(task.products && task.products[0].type == "life/out") {
+                    if(task.products && task.products[0].type == "soichih/life/out") {
                         for(var id in task.products[0].graphs) {
                             var graph = task.products[0].graphs[id];
                             var path = dir+"/"+graph.filename;
